@@ -1,0 +1,110 @@
+<script type="text/javascript">
+    function oneditprepare() {
+        //do nothing
+    }
+    RED.nodes.registerType('iotbnb',{
+        category: 'IoT standard',
+        color: '#00AFF0',
+        defaults: {
+            name: {value:""},
+            operations: {value:""},
+            type1: {value:"all"},
+            price: {value:""},
+            reputation: {value:""},
+            service: {value:""},
+        },
+        inputs:1,
+        outputs:1,
+        icon: "feed.png",
+        label: function() {
+            return this.name||"iotbnb";
+        },
+        oneditprepare: function() {
+            var oper = $("#node-input-operations").val();
+            //var oper_readTypes = $("#node-input-readTypes").val();
+            if (oper == undefined) {
+                $(".node-input-type1").hide();
+                $(".node-input-price").hide();
+                $(".node-input-reputation").hide();
+                $(".node-input-service").hide();
+            }
+        },
+        /*oneditsave: function() {
+            var type = $("#node-input-readTypes").val();
+            if (type == "subscriboooe") {
+                console.log("totoooo");
+            }
+        },*/
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        }
+        //oneditprepare: oneditprepare
+    });
+</script>
+
+<script type="text/x-red" data-template-name="iotbnb">
+    <!--<div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="common.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]common.label.name">-->
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" data-i18n="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-operations"><i class="fa fa-envelope"></i> Interface</label>
+        <select type="text" id="node-input-operations" placeholder="Toto">
+            <option value="getAllServices">getAllServices</option>
+            <option value="searchServices">searchServices</option>
+            <option value="getServiceAccessInformation">getServiceAccessInformation</option>
+        </select>
+    </div>
+    <div class="form-row node-input-type1">
+        <label for="node-input-type1"><i class="fa fa-search"></i> Type</label> <span data-i18n="type1"></span></label>
+        <input type="text" id="node-input-type1" placeholder="Set an INSPIRE theme if desired (by default: all)">
+    </div>
+    <div class="form-row node-input-price">
+        <label for="node-input-price"><i class="fa fa-btc"></i> Price</label> <span data-i18n="price"></span></label>
+        <input type="text" id="node-input-price" placeholder="Set the price if you want to buy at a specific price (by default: 0)">
+    </div>
+    <div class="form-row node-input-reputation">
+        <label for="node-input-reputation"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> Reputation</label> <span data-i18n="reputation"></span></label>
+        <input type="text" id="node-input-reputation" placeholder="Set the reputation if desired (by default: all)">
+    </div>
+    <div class="form-row node-input-service">
+        <label for="node-input-service"><i class="fa fa-search"></i> Service</label> <span data-i18n="service"></span></label>
+        <input type="text" id="node-input-service" placeholder="Set a service">
+    </div>
+
+    <script>
+        $("#node-input-operations").change(function() {
+            var oper = $("#node-input-operations").val();
+            if (oper == "getAllServices") {
+                $(".node-input-type1").hide();
+                $(".node-input-price").hide();
+                $(".node-input-reputation").hide();
+                $(".node-input-service").hide();
+            } else if (oper == "searchServices") {
+                $(".node-input-type1").show();
+                $(".node-input-price").show();
+                $(".node-input-reputation").show();
+                $(".node-input-service").hide();
+            } 
+            else if (oper == "getServiceAccessInformation") {
+                $(".node-input-type1").hide();
+                $(".node-input-price").hide();
+                $(".node-input-reputation").hide();
+                $(".node-input-service").show();
+            } 
+        });
+    </script>
+</script>
+
+
+<script type="text/x-red" data-help-name="iotbnb">
+    <p>         operations= n.operations || msg.operations;
+                price= n.price || msg.price;
+                type1= n.type1 || msg.type1;
+                reputation= n.reputation || msg.reputation;
+                service= n.service || msg.service;
+</script>
