@@ -6,6 +6,9 @@
         category: 'IoT standard',
         color: '#00AFF0',
         defaults: {
+            latitude: {value:""},
+            longitude: {value:""},
+            radius: {value:""},
             name: {value:""},
             operations: {value:""},
             type1: {value:"all"},
@@ -23,6 +26,9 @@
             var oper = $("#node-input-operations").val();
             //var oper_readTypes = $("#node-input-readTypes").val();
             if (oper == undefined) {
+                $(".node-input-Geo1").hide();
+                $(".node-input-Geo2").hide();
+                $(".node-input-Geo3").hide();
                 $(".node-input-type1").hide();
                 $(".node-input-price").hide();
                 $(".node-input-reputation").hide();
@@ -59,6 +65,18 @@
             <option value="getServiceAccessInformation">getServiceAccessInformation</option>
         </select>
     </div>
+    <div class="form-row node-input-Geo1">
+        <label for="node-input-Geo1"><i class="fa fa-map-marker"></i> Geo-Filter</label> <span data-i18n="type1"></span></label>
+        <input type="text" id="node-input-latitude" placeholder="Set latitude (by default: n/a, i.e. parameter not used)">
+    </div>
+     <div class="form-row node-input-Geo2">
+        <label for="node-input-Geo2"> </label> <span data-i18n="type1"></span></label>
+        <input type="text" id="node-input-longitude" placeholder="Set longitude (by default: n/a, i.e. parameter not used)">
+    </div>
+     <div class="form-row node-input-Geo3">
+        <label for="node-input-Geo3"></label> <span data-i18n="type1"></span></label>
+        <input type="text" id="node-input-radius" placeholder="Set a radius (by default: 100m)">
+    </div>
     <div class="form-row node-input-type1">
         <label for="node-input-type1"><i class="fa fa-search"></i> Type</label> <span data-i18n="type1"></span></label>
         <input type="text" id="node-input-type1" placeholder="Set an INSPIRE theme if desired (by default: all)">
@@ -80,17 +98,26 @@
         $("#node-input-operations").change(function() {
             var oper = $("#node-input-operations").val();
             if (oper == "getAllServices") {
+                $(".node-input-Geo1").hide();
+                $(".node-input-Geo2").hide();
+                $(".node-input-Geo3").hide();
                 $(".node-input-type1").hide();
                 $(".node-input-price").hide();
                 $(".node-input-reputation").hide();
                 $(".node-input-service").hide();
             } else if (oper == "searchServices") {
+                $(".node-input-Geo1").show();
+                $(".node-input-Geo2").show();
+                $(".node-input-Geo3").show();
                 $(".node-input-type1").show();
                 $(".node-input-price").show();
                 $(".node-input-reputation").show();
                 $(".node-input-service").hide();
             } 
             else if (oper == "getServiceAccessInformation") {
+                $(".node-input-Geo1").hide();
+                $(".node-input-Geo2").hide();
+                $(".node-input-Geo3").hide();
                 $(".node-input-type1").hide();
                 $(".node-input-price").hide();
                 $(".node-input-reputation").hide();
@@ -103,6 +130,9 @@
 
 <script type="text/x-red" data-help-name="iotbnb">
     <p>         operations= n.operations || msg.operations;
+                latitude= n.latitude || msg.latitude;
+                longitude= n.longitude || msg.longitude;
+                radius= n.radius || msg.radius;
                 price= n.price || msg.price;
                 type1= n.type1 || msg.type1;
                 reputation= n.reputation || msg.reputation;

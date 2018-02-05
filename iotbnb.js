@@ -18,7 +18,28 @@ module.exports = function(RED) {
             else{
                 operations= n.operations;
             }
-	
+
+            if (n.latitude=="" && typeof msg.latitude=="undefined"){
+                latitude="";
+            }
+            else{
+                latitude=n.latitude || msg.latitude;
+            }
+	           
+            if (n.longitude=="" && typeof msg.longitude=="undefined"){
+                longitude="";
+            }
+            else{
+                longitude=n.longitude || msg.longitude;
+            }
+            
+            if (n.radius=="" && typeof msg.radius=="undefined"){
+                radius="100";
+            }
+            else{
+                radius=n.radius || msg.radius;
+            }   
+
             if (n.type1=="" && typeof msg.type1=="undefined"){
                 type1="all";
             }
@@ -49,6 +70,9 @@ module.exports = function(RED) {
 
         var options = {
                 operations: operations,
+                latitude: latitude,
+                longitude: longitude,
+                radius: radius,
                 type1: type1,
                 price: price,
                 reputation: reputation,
